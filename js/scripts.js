@@ -6,7 +6,10 @@ const submitButton = document.getElementById('submit-button');
 const pageHeader = document.getElementById('page-header');
 
 pageHeader.classList.remove('bg-dark');
-pageHeader.classList.add('bg-primary');
+pageHeader.classList.add('bg-success');
+
+submitButton.classList.remove('btn-primary');
+submitButton.classList.add('btn-dark');
 
 const api = 'https://master-7rqtwti-fus3tltfddn7w.eu-2.platformsh.site';
 
@@ -23,20 +26,20 @@ submitButton.addEventListener('click', ($event) => {
   };
 });
 
-function makeRequest(data) => {
+function makeRequest(data) {
   return new Promise((resolve, reject) => {
-    let request = new XMLHttpRequest {
-      request.open('POST', api + '/create-post');
-      request.onreadystatechange = () => {
-        if (request.readyState === 4) {
-          if (request.status === 201) {
-            resolve(JSON.parse(request.response));
-          } else {
-            reject(JSON.parse(request.response));
-          }
+    let request = new XMLHttpRequest();
+    request.open('POST', api + '/create-post');
+    request.onreadystatechange = () => {
+      if (request.readyState === 4) {
+        if (request.status === 201) {
+          resolve(JSON.parse(request.response));
+        } else {
+          reject(JSON.parse(request.response));
         }
       }
-    };
+    }
+    
     request.setRequestHeader('Content-Type', 'application/json');
     request.send(JSON.stringify(data));
   });
